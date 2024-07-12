@@ -32,12 +32,25 @@ jobs:
       - name: List files
         run: ls -a
 
-      - name: 发布到腾讯云
-        uses: easingthemes/ssh-deploy@v2.1.1
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
-          ARGS: '-avzr --delete'
-          SOURCE: "*.output .nuxt pm2.config.cjs package.json"
-          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-          REMOTE_USER: 'root'
-          TARGET: '/www/wwwroot/projects/examApp/'
+      - name: Compress files to ZIP
+        run: |
+                zip -r deploy.zip .nuxt .output package.json pm2.config.cjs
+
+      - name: Copy ZIP to Tencent Cloud Server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          source: ./deploy.zip
+          target: "/www/wwwroot/projects/temp/"
+
+#      - name: 发布到腾讯云
+#        uses: easingthemes/ssh-deploy@v2.1.1
+#        env:
+#          SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+#          ARGS: '-avzr --delete'
+#          SOURCE: "*.output .nuxt pm2.config.cjs package.json"
+#          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+#          REMOTE_USER: 'root'
+#          TARGET: '/www/wwwroot/projects/examApp/'
