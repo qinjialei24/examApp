@@ -46,11 +46,17 @@ jobs:
           REMOTE_USER: 'root'
           TARGET: '/www/wwwroot/projects/examApp/'
 
-      - name: unzip files
-        run: |
-          cd /www/wwwroot/projects/examApp/
-          unzip -o deploy.zip -d /www/wwwroot/projects/examApp/
-          rm deploy.zip
+      - name: Unzip files on Tencent Cloud Server
+        uses: appleboy/ssh-action@master
+        with:
+            host: ${{ secrets.REMOTE_HOST }}
+            username: ${{ secrets.REMOTE_USER }}
+            key: ${{ secrets.PRIVATE_KEY }}
+            port: 22 # 如果SSH端口不是默认的22，请替换
+            script: |
+              cd /www/wwwroot/projects/examApp/
+              unzip -o deploy.zip -d .
+              rm deploy.zip
 
       - name: List files
         run: ls -a
