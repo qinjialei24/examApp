@@ -46,7 +46,7 @@ jobs:
           REMOTE_USER: 'root'
           TARGET: '/www/wwwroot/projects/examApp/'
 
-      - name: Unzip files on Tencent Cloud Server
+      - name: Update site
         uses: appleboy/ssh-action@master
         with:
             host: ${{ secrets.REMOTE_HOST }}
@@ -57,7 +57,7 @@ jobs:
               cd /www/wwwroot/projects/examApp/
               unzip -o deploy.zip -d .
               rm deploy.zip
-
-
+              pm2 restart all
+              
       - name: List files
         run: ls -a
