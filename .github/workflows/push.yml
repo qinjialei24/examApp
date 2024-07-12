@@ -40,7 +40,7 @@ jobs:
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.REMOTE_HOST }}
-          key: ${{ secrets.SSH_KEY }}
+          key: ${{ secrets.PRIVATE_KEY }}
           source: ./deploy.zip
           target: "/www/wwwroot/projects/temp/"
 
