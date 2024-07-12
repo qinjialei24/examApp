@@ -1,4 +1,4 @@
-name: 打包应用并上传腾讯云
+name: deploy to tencent cloud
 
 on:
   push:
@@ -48,6 +48,7 @@ jobs:
 
       - name: unzip files
         run: |
+          cd /www/wwwroot/projects/examApp/
           unzip -o deploy.zip -d /www/wwwroot/projects/examApp/
           rm deploy.zip
 
