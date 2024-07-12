@@ -57,7 +57,7 @@ jobs:
               cd /www/wwwroot/projects/examApp/
               unzip -o deploy.zip -d .
               rm deploy.zip
-              pm2 restart all
+              pm2 -v
               
       - name: List files
         run: ls -a
