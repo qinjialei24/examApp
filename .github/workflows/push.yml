@@ -37,7 +37,7 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
           ARGS: '-avzr --delete'
-          SOURCE: "*.output, .nuxt, pm2.config.cjs, package.json"
+          SOURCE: "*.output .nuxt pm2.config.cjs package.json"
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: 'root'
           TARGET: '/www/wwwroot/projects/examApp/'
