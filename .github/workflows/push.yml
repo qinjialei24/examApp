@@ -36,7 +36,7 @@ jobs:
         run: |
                 zip -r deploy.zip .nuxt .output package.json pm2.config.cjs
 
-      - name: 发布到腾讯云
+      - name: Copy ZIP to Tencent Cloud Server
         uses: easingthemes/ssh-deploy@main
         env:
           SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
@@ -46,12 +46,10 @@ jobs:
           REMOTE_USER: 'root'
           TARGET: '/www/wwwroot/projects/examApp/'
 
-#      - name: Copy ZIP to Tencent Cloud Server
-#        uses: appleboy/scp-action@v0.1.7
-#        with:
-#          host: ${{ secrets.REMOTE_HOST }}
-#          key: ${{ secrets.PRIVATE_KEY }}
-#          source: ./deploy.zip
-#          target: "/www/wwwroot/projects/temp/"
+      - name: unzip files
+        run: |
+          unzip -o deploy.zip -d /www/wwwroot/projects/examApp/
+          rm deploy.zip
 
-#
+      - name: List files
+        run: ls -a
