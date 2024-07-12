@@ -39,8 +39,7 @@ jobs:
       - name: Copy ZIP to Tencent Cloud Server
         uses: appleboy/scp-action@v0.1.7
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
+          host: ${{ secrets.REMOTE_HOST }}
           key: ${{ secrets.SSH_KEY }}
           source: ./deploy.zip
           target: "/www/wwwroot/projects/temp/"
