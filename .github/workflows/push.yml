@@ -21,6 +21,9 @@ jobs:
         with:
           node-version: 20.12.1
 
+      - name: Install pnpm
+        run: npm install -g pnpm 
+
       # 安装依赖
       - name: 安装依赖
         run: pnpm install
